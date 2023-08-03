@@ -1,9 +1,18 @@
-const fs = require('fs');
-const readline = require('readline');
 
-function main(fileName){
-    const fileStream = fs.createReadStream(fileName);
+const { createReadStream } = require('./utils/createReadStream');
 
+function main(fileName){    
+    const rl = createReadStream(fileName)
+
+    let arrayOfGames = []
+
+    rl.on('line', (line) => {
+        console.log(`Line: ${line}`);
+    });
+    
+    rl.on('close', () => {
+        console.log('Finished reading the file.');
+    });
 
 }
 

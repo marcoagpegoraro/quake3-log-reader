@@ -1,0 +1,5 @@
+exports.identifyTypeOfLine = (line) => {
+
+    return ""
+
+}
