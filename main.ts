@@ -1,19 +1,17 @@
 
 import createReadStream from './src/utils/createReadStream';
+import processLine from './src/utils/processLine'
+import endLine from './src/utils/endLine'
 
 function main(fileName){    
     const rl = createReadStream(fileName)
 
     let arrayOfGames = []
-
-    rl.on('line', (line) => {
-        console.log(`Line: ${line}`);
-    });
     
-    rl.on('close', () => {
-        console.log('Finished reading the file.');
-    });
+    rl.on('line', (line) => processLine(line));
+    rl.on('close', () => endLine());
 
+    
 }
 
 main("./resources/qgames.log")
