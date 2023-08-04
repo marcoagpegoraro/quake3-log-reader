@@ -1,5 +1,5 @@
 
-const { createReadStream } = require('./utils/createReadStream');
+import createReadStream from './src/utils/createReadStream';
 
 function main(fileName){    
     const rl = createReadStream(fileName)
@@ -16,4 +16,4 @@ function main(fileName){
 
 }
 
-main("./qgames.log")
+main("./resources/qgames.log")

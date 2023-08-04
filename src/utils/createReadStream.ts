@@ -1,7 +1,7 @@
-const fs = require('fs');
-const readline = require('readline');
+import * as fs from 'fs'
+import * as readline from 'readline';
 
-exports.createReadStream = (fileName) => {
+export default function createReadStream(fileName) {
     const fileStream = fs.createReadStream(fileName);
     
     return readline.createInterface({

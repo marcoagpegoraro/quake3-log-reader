@@ -1,0 +1,26 @@
+{
+  "name": "quake3-log-reader",
+  "version": "1.0.0",
+  "description": "> Truth can only be found in one place: the code. <br/> > -- Robert C. Martin",
+  "main": "main.js",
+  "scripts": {
+    "dev": "ts-node main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcoagpegoraro/quake3-log-reader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcoagpegoraro/quake3-log-reader/issues"
+  },
+  "homepage": "https://github.com/marcoagpegoraro/quake3-log-reader#readme",
+  "devDependencies": {
+    "@types/node": "^7.10.14",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}

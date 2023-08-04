@@ -1,5 +1,0 @@
-exports.identifyTypeOfLine = (line) => {
-
-    return ""
-
-}
