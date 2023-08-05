@@ -1,14 +1,10 @@
 
-import createReadStream from './services/createReadStream';
+// import createReadStream from './services/createReadStream';
 import processLine from './services/processLine'
 import endLine from './services/endLine'
+import processFile from './services/createReadStream';
 
-function main(fileName){    
-    const rl = createReadStream(fileName)
-
-    rl.on('line', (line) => processLine(line));
-    rl.on('close', () => endLine());
-
+export default async function main(fileName){    
+    const file = await processFile(fileName)
+    console.log(file)
 }
-
-main("./resources/qgames.log")

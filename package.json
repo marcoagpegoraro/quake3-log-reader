@@ -4,7 +4,7 @@
   "description": "> Truth can only be found in one place: the code. <br/> > -- Robert C. Martin",
   "main": "main.js",
   "scripts": {
-    "dev": "ts-node ./src/main.ts",
+    "dev": "ts-node main.ts",
     "test": "jest"
   },
   "repository": {
