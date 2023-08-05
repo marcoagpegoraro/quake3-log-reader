@@ -1,4 +1,5 @@
 import { Game } from "../types/Game";
+import { GameKillsByMeans } from "../types/GameKillsByMeans";
 import { TempGame } from "../types/TempGame";
 
 export default class GamesSingleton {
@@ -6,7 +7,9 @@ export default class GamesSingleton {
     private static instance: GamesSingleton;
 
     games: Game[]
+    gamesKillsByMeans: GameKillsByMeans[]
     tempGame: TempGame
+    tempGameKillsByMeans: TempGame
     isGameActive: boolean 
 
     constructor() {
