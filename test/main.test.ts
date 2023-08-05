@@ -1,10 +1,11 @@
 import { describe, expect, test } from '@jest/globals';
 import main from '../src/main';
 import { Game } from '../src/types/Game';
+import { GameDeathCause } from '../src/types/GameDeathCause';
 
 describe('Process log file', () => {
   test('Process a log file with only one game', async () => {
-    const games: Game[] = await main("./test/resources/qgames_test_one_game.log") as Game[]
+    const [games, gameDeathCause] = await main("./test/resources/qgames_test_one_game.log") as [Game[], GameDeathCause[]]
     console.log(JSON.stringify(games))
     const firstGame = games[0]
 
@@ -41,7 +42,7 @@ describe('Process log file', () => {
   });
 
   test('Process a log file with three games', async () => {
-    const games: Game[] = await main("./test/resources/qgames_test_three_games.log") as Game[]
+    const [games, gameDeathCause] = await main("./test/resources/qgames_test_three_games.log") as [Game[], GameDeathCause[]]
     console.log(JSON.stringify(games))
 
     //In this log file, i only included the first three games of the original file

@@ -1,5 +1,5 @@
 import { MeansOfDeath } from "../enum/MeansOfDeath"
 
-export type TempGameKilledByMeans = {
+export type GameDeathCause = {
     kills_by_means?: Map<MeansOfDeath, number>
 }

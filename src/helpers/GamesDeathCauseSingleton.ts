@@ -1,13 +1,12 @@
 import { MeansOfDeath } from "../enum/MeansOfDeath";
-import { TempGameKilledByMeans } from "../types/TempGameKillsByMeans";
+import { GameDeathCause } from "../types/GameDeathCause";
 
-export default class GamesKillsByMeansSingleton {
+export default class GamesDeathCauseSingleton {
 
-    private static instance: GamesKillsByMeansSingleton;
+    private static instance: GamesDeathCauseSingleton;
 
-    games:  TempGameKilledByMeans[]
-    tempGame: TempGameKilledByMeans
-    isGameActive: boolean 
+    games:  GameDeathCause[]
+    tempGame: GameDeathCause
 
     constructor() {
         this.resetGames()
@@ -15,7 +14,7 @@ export default class GamesKillsByMeansSingleton {
 
     static getInstance() {
         if(this.instance == undefined){
-            this.instance = new GamesKillsByMeansSingleton()
+            this.instance = new GamesDeathCauseSingleton()
         }
         return this.instance;
     }
@@ -26,7 +25,7 @@ export default class GamesKillsByMeansSingleton {
         }
     } 
    
-    addDeathCause(deathCause){
+    increaseDeathCauseCount(deathCause){
         if(this.tempGame.kills_by_means.get(deathCause) == undefined){
             this.tempGame.kills_by_means.set(deathCause, 0)
         }
@@ -41,7 +40,6 @@ export default class GamesKillsByMeansSingleton {
 
     resetGames(){
         this.games = []
-        this.isGameActive = false
         this.resetTempGame()
     }
 

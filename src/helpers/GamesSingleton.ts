@@ -1,8 +1,5 @@
-import { MeansOfDeath } from "../enum/MeansOfDeath";
 import { Game } from "../types/Game";
-import { GameKillsByMeans } from "../types/GameKillsByMeans";
 import { TempGame } from "../types/TempGame";
-import { TempGameKilledByMeans } from "../types/TempGameKillsByMeans";
 
 export default class GamesSingleton {
 
@@ -10,7 +7,6 @@ export default class GamesSingleton {
 
     games: Game[]
     tempGame: TempGame
-    isGameActive: boolean 
 
     constructor() {
         this.resetGames()
@@ -70,7 +66,6 @@ export default class GamesSingleton {
 
     resetGames(){
         this.games = []
-        this.isGameActive = false
         this.resetTempGame()
     }
 
