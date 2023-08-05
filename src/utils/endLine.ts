@@ -1,3 +1,7 @@
+import GamesSingleton from "../GamesSingleton";
+
 export default function endLine(){
-    return console.log('Finished reading the file.');
+    let gamesSingleton = GamesSingleton.getInstance()
+    
+    return console.log(JSON.stringify(gamesSingleton.games))
 }

@@ -1,27 +1,31 @@
 import GamesSingleton from "../GamesSingleton";
-import identifyTypeOfLine from "./identifyTypeOfLine";
+import returnKillerPlayerAndKilledPlayer from "./returnKillerPlayerAndKilledPlayer";
 
-export default function processLine(line){
+export default function processLine(line) {
 
-    let gamesSingleton = new GamesSingleton().getInstance();
+  let gamesSingleton = GamesSingleton.getInstance();
 
-    // const typeOfLine = identifyTypeOfLine(line);
+  switch (true) {
+    case line.indexOf("InitGame") != -1 && gamesSingleton.isGameActive:
+    case line.indexOf("ShutdownGame") != -1:
+      gamesSingleton.isGameActive = false
+      gamesSingleton.addTempGame()
+      break;
+    case line.indexOf("InitGame") != -1:
+      gamesSingleton.isGameActive = true
+      break;
+    case line.indexOf("killed") != -1:
+      const [killerPlayer, killedPlayer] = returnKillerPlayerAndKilledPlayer(line);
 
-    let isGameActive: boolean = false;
+      gamesSingleton.tempGame.players.add(killedPlayer)
 
-    switch (true) {
-        case line.indexOf("InitGame") != -1:
-            isGameActive = true
-            gamesSingleton.setTempGame({})
-        break;
-        case line.indexOf("ShutdownGame") != -1:
-            isGameActive = false
-        break;
-        default:
-        
-        
-        break;
-    }
-    
-    return console.log(`Line: ${line}`)
+      if(killerPlayer  == "<world>"){
+        gamesSingleton.removeKillCount(killedPlayer)
+        break
+      }
+
+      gamesSingleton.tempGame.players.add(killerPlayer)
+      gamesSingleton.addKillCount(killerPlayer)
+      break
+  }
 }

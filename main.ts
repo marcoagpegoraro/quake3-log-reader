@@ -6,12 +6,9 @@ import endLine from './src/utils/endLine'
 function main(fileName){    
     const rl = createReadStream(fileName)
 
-    let arrayOfGames = []
-    
     rl.on('line', (line) => processLine(line));
     rl.on('close', () => endLine());
 
-    
 }
 
 main("./resources/qgames.log")
