@@ -1,4 +1,4 @@
-import GamesSingleton from "../GamesSingleton";
+import GamesSingleton from "../helpers/GamesSingleton";
 
 export default function endLine(){
     let gamesSingleton = GamesSingleton.getInstance()

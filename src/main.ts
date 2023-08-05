@@ -1,7 +1,7 @@
 
-import createReadStream from './src/utils/createReadStream';
-import processLine from './src/utils/processLine'
-import endLine from './src/utils/endLine'
+import createReadStream from './services/createReadStream';
+import processLine from './services/processLine'
+import endLine from './services/endLine'
 
 function main(fileName){    
     const rl = createReadStream(fileName)

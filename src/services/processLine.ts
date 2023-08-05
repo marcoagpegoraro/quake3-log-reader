@@ -1,4 +1,4 @@
-import GamesSingleton from "../GamesSingleton";
+import GamesSingleton from "../helpers/GamesSingleton";
 import returnKillerPlayerAndKilledPlayer from "./returnKillerPlayerAndKilledPlayer";
 
 export default function processLine(line) {

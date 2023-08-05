@@ -1,5 +1,5 @@
-import { Game } from "./types/Game";
-import { TempGame } from "./types/TempGame";
+import { Game } from "../types/Game";
+import { TempGame } from "../types/TempGame";
 
 export default class GamesSingleton {
 
