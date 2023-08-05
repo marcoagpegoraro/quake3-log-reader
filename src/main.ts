@@ -3,8 +3,12 @@
 import processLine from './services/processLine'
 import endLine from './services/endLine'
 import processFile from './services/createReadStream';
+import GamesSingleton from './helpers/GamesSingleton';
 
 export default async function main(fileName){    
-    const file = await processFile(fileName)
-    console.log(file)
+    const processedFile = await processFile(fileName)
+
+    GamesSingleton.getInstance().resetGames()
+
+    return processedFile
 }

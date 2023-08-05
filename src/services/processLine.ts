@@ -11,21 +11,24 @@ export default function processLine(line) {
       gamesSingleton.isGameActive = false
       gamesSingleton.addTempGame()
       break;
+
     case line.indexOf("InitGame") != -1:
       gamesSingleton.isGameActive = true
       break;
+
     case line.indexOf("killed") != -1:
       const [killerPlayer, killedPlayer] = returnKillerPlayerAndKilledPlayer(line);
 
       gamesSingleton.tempGame.players.add(killedPlayer)
 
-      if(killerPlayer  == "<world>"){
-        gamesSingleton.removeKillCount(killedPlayer)
+      if (killerPlayer == "<world>") {
+        gamesSingleton.increaseTotalKillCount()
+        gamesSingleton.removePlayerKillCountByOne(killedPlayer)
         break
       }
 
       gamesSingleton.tempGame.players.add(killerPlayer)
-      gamesSingleton.addKillCount(killerPlayer)
+      gamesSingleton.addPlayerKillCountByOne(killerPlayer)
       break
   }
 }

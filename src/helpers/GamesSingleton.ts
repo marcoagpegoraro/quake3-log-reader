@@ -10,9 +10,7 @@ export default class GamesSingleton {
     isGameActive: boolean 
 
     constructor() {
-        this.games = []
-        this.isGameActive = false
-        this.resetTempPlater()
+        this.resetGames()
     }
 
     static getInstance() {
@@ -34,17 +32,17 @@ export default class GamesSingleton {
         return this.tempGame = tempGame 
     }
    
-    addKillCount(playerName){
+    addPlayerKillCountByOne(playerName){
         if(this.tempGame.kills.get(playerName) == undefined){
             this.tempGame.kills.set(playerName, 0)
         }
 
-        this.tempGame.total_kills++
+        this.increaseTotalKillCount()
         this.tempGame.kills.set(playerName, this.tempGame.kills.get(playerName) + 1)
     }
 
 
-    removeKillCount(playerName){
+    removePlayerKillCountByOne(playerName){
         if(this.tempGame.kills.get(playerName) == undefined){
             this.tempGame.kills.set(playerName, 0)
         }
@@ -57,6 +55,10 @@ export default class GamesSingleton {
         this.tempGame.kills.set(playerName, this.tempGame.kills.get(playerName) - 1)
     }
 
+    increaseTotalKillCount(){
+        this.tempGame.total_kills++
+    }
+
     addTempGame() { 
         const game: Game = {
             total_kills: this.tempGame.total_kills, 
@@ -67,5 +69,9 @@ export default class GamesSingleton {
         this.games.push(game)
     }
 
-    
+    resetGames(){
+        this.games = []
+        this.isGameActive = false
+        this.resetTempPlater()
+    }
 }
