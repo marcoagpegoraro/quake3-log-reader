@@ -1,15 +1,15 @@
+import { MeansOfDeath } from "../enum/MeansOfDeath";
 import { Game } from "../types/Game";
 import { GameKillsByMeans } from "../types/GameKillsByMeans";
 import { TempGame } from "../types/TempGame";
+import { TempGameKilledByMeans } from "../types/TempGameKillsByMeans";
 
 export default class GamesSingleton {
 
     private static instance: GamesSingleton;
 
     games: Game[]
-    gamesKillsByMeans: GameKillsByMeans[]
     tempGame: TempGame
-    tempGameKillsByMeans: TempGame
     isGameActive: boolean 
 
     constructor() {
@@ -23,16 +23,12 @@ export default class GamesSingleton {
         return this.instance;
     }
 
-    resetTempPlater(){
+    resetTempGame(){
         this.tempGame = {
             total_kills: 0,
             players: new Set<string>,
             kills: new Map<string, number>,
         }
-    }
-   
-    setTempGame(tempGame) { 
-        return this.tempGame = tempGame 
     }
    
     addPlayerKillCountByOne(playerName){
@@ -68,13 +64,14 @@ export default class GamesSingleton {
             players: Array.from(this.tempGame.players),
             kills: Object.fromEntries(this.tempGame.kills)
         }
-        this.resetTempPlater()
+        this.resetTempGame()
         this.games.push(game)
     }
 
     resetGames(){
         this.games = []
         this.isGameActive = false
-        this.resetTempPlater()
+        this.resetTempGame()
     }
+
 }
