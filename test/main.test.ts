@@ -2,6 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import main from '../src/main';
 import { Game } from '../src/types/Game';
 import { GameDeathCause } from '../src/types/GameDeathCause';
+import { MeansOfDeath } from '../src/enum/MeansOfDeath';
 
 describe('Process log file', () => {
   test('Process a log file with only one game', async () => {
@@ -51,5 +52,28 @@ describe('Process log file', () => {
     //so in my code, i end a game using two conditions, one if there is a "ShutdownGame" log, and 
     //another if a log "InitGame" apears while im collecting data for a game
     expect(games.length).toBe(3);
+  });
+
+  test('Process a log file with only one game', async () => {
+    const [games, gameDeathCause] = await main("./test/resources/qgames_test_one_game.log") as [Game[], GameDeathCause[]]
+    console.log(JSON.stringify( gameDeathCause))
+    const firstGame =  gameDeathCause[0]
+
+    expect(firstGame.kills_by_means?.size).toBe(6);
+
+    expect(firstGame.kills_by_means?.get(MeansOfDeath.MOD_TRIGGER_HURT)).toBe(7);
+    expect(firstGame.kills_by_means?.get(MeansOfDeath.MOD_ROCKET_SPLASH)).toBe(5);
+    expect(firstGame.kills_by_means?.get(MeansOfDeath.MOD_CRUSH)).toBe(1);
+    expect(firstGame.kills_by_means?.get(MeansOfDeath.MOD_BFG_SPLASH)).toBe(3);
+    expect(firstGame.kills_by_means?.get(MeansOfDeath.MOD_MACHINEGUN)).toBe(1);
+    expect(firstGame.kills_by_means?.get(MeansOfDeath.MOD_RAILGUN)).toBe(4);
+
+  });
+
+  test('Process a log file with three games', async () => {
+    const [games, gameDeathCause] = await main("./test/resources/qgames_test_three_games.log") as [Game[], GameDeathCause[]]
+    console.log(JSON.stringify(gameDeathCause))
+
+    expect(gameDeathCause.length).toBe(3);
   });
 });

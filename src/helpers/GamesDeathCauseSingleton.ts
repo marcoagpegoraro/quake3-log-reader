@@ -26,11 +26,13 @@ export default class GamesDeathCauseSingleton {
     } 
    
     increaseDeathCauseCount(deathCause){
-        if(this.tempGame.kills_by_means.get(deathCause) == undefined){
-            this.tempGame.kills_by_means.set(deathCause, 0)
+        const meanOfDeath = MeansOfDeath.parse(deathCause)
+
+        if(this.tempGame.kills_by_means.get(meanOfDeath) == undefined){
+            this.tempGame.kills_by_means.set(meanOfDeath, 0)
         }
 
-        this.tempGame.kills_by_means.set(deathCause, this.tempGame.kills_by_means.get(deathCause) + 1)
+        this.tempGame.kills_by_means.set(meanOfDeath, this.tempGame.kills_by_means.get(meanOfDeath) + 1)
     }
 
     addTempGame() { 
@@ -43,8 +45,4 @@ export default class GamesDeathCauseSingleton {
         this.resetTempGame()
     }
 
-    resetGamesKillsByMeans(){
-        this.games = []
-        this.resetGames()
-    }
 }
