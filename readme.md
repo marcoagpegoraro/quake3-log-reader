@@ -19,7 +19,7 @@ npm run dev
 ```
 if you want to run the unit tests, run this command:
 ```
-npm run dev
+npm run test
 ```
 
 The unit tests covered 100% of the the lines of the app.
