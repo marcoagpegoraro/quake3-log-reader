@@ -47,4 +47,12 @@ export default class GamesDeathCauseSingleton {
         this.resetTempGame()
     }
 
+    getGames(){
+        return {
+            kills_by_means: this.games
+                .map(game => game.kills_by_means)
+                .map(game => Object.fromEntries(game))
+        }
+    }
+
 }

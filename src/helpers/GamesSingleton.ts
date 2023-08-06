@@ -70,4 +70,7 @@ export default class GamesSingleton {
         this.resetTempGame()
     }
 
+    getGames(){
+        return this.games
+    }
 }
