@@ -13,9 +13,13 @@ export default function processLine(line) {
   switch (true) {
     case line.indexOf("InitGame") != -1 && globalsSingleton.isGameActive:
     case line.indexOf("ShutdownGame") != -1:
-      globalsSingleton.isGameActive = false
       gamesSingleton.addTempGame()
       gamesDeathCauseSingleton.addTempGame()
+      globalsSingleton.isGameActive = false
+      globalsSingleton.currentGameNumber++
+      gamesSingleton.resetTempGame()
+      gamesDeathCauseSingleton.resetTempGame()
+
       break;
 
     case line.indexOf("InitGame") != -1:
@@ -28,7 +32,7 @@ export default function processLine(line) {
 
       const [killerPlayer, killedPlayer] = returnKillerPlayerAndKilledPlayer(line);
 
-      gamesSingleton.tempGame.players.add(killedPlayer)
+      gamesSingleton.getCurrentGame().players.add(killedPlayer)
 
       if (killerPlayer == "<world>") {
         gamesSingleton.increaseTotalKillCount()
@@ -36,7 +40,7 @@ export default function processLine(line) {
         break
       }
 
-      gamesSingleton.tempGame.players.add(killerPlayer)
+      gamesSingleton.getCurrentGame().players.add(killerPlayer)
       gamesSingleton.addPlayerKillCountByOne(killerPlayer)
       break
   }

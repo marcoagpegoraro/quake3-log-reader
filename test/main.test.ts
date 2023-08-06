@@ -8,7 +8,7 @@ describe('Process log file', () => {
   test('Process a log file with only one game', async () => {
     const [games, gameDeathCause] = await main("./test/resources/qgames_test_one_game.log") as [Game[], GameDeathCause[]]
     console.log(JSON.stringify(games))
-    const firstGame = games[0]
+    const firstGame = games[0]['game_1']
 
     //I slightly changed the log file to contain only one game and this game, i put the line
     //67 to test if the number of kills of the player Assasinu Credi would decrease because
@@ -33,7 +33,7 @@ describe('Process log file', () => {
     //that Isgalamido killed 7 players, but if you search "<world> killed Isgalamido", you will
     //see that world killed Isgalamido 2 times, but the number of kills is still 7 because <world>
     //killed Isgalamido before Isgalamido killed other player, and the number of kills cannot be negative
-    expect(firstGame.kills?.Isgalamido).toBe(7);
+    expect(firstGame.kills?.['Isgalamido']).toBe(7);
 
     //In the case of the player "Assasinu Credi", if you search "Assasinu Credi killed", you will see
     //that Assasinu Credi killed 1 player, but if you search "<world> killed Isgalamido", you will
@@ -57,11 +57,11 @@ describe('Process log file', () => {
   test('Process a log file with only one game', async () => {
     const [games, gameDeathCause] = await main("./test/resources/qgames_test_one_game.log") as [Game[], any[]]
     console.log(JSON.stringify( gameDeathCause))
-    const firstGame = gameDeathCause['kills_by_means'][0]
+    const firstGame = gameDeathCause[0]['game-1']['kills_by_means']
 
     expect(Object.keys(firstGame).length).toBe(6);
     
-    expect(firstGame[MeansOfDeath.MOD_TRIGGER_HURT]).toBe(7);
+    expect(firstGame[MeansOfDeath.MOD_TRIGGER_HURT.toString()]).toBe(7);
 
   });
 
@@ -69,6 +69,6 @@ describe('Process log file', () => {
     const [games, gameDeathCause] = await main("./test/resources/qgames_test_three_games.log") as [Game[], any[]]
     // console.log(JSON.stringify(gameDeathCause))
 
-    expect(gameDeathCause['kills_by_means']['length']).toBe(3);
+    expect(gameDeathCause.length).toBe(3);
   });
 });

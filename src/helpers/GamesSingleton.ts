@@ -1,14 +1,15 @@
-import { Game } from "../types/Game";
-import { TempGame } from "../types/TempGame";
+import { mapGameIntoGameReport } from "../mappers/mapGameIntoGameReport";
+import { Game, GameReport, KillsContent } from "../types/Game";
 import { orderMapByValue } from "../utils/orderMapByValue";
+import GlobalsSingleton from "./GlobalsSingleton";
 import { IGamesSingleton } from "./IGamesSingleton";
 
 export default class GamesSingleton implements IGamesSingleton{
 
     private static instance: GamesSingleton;
 
-    games: Game[]
-    tempGame: TempGame
+    games: GameReport[]
+    tempGame: Game
 
     constructor() {
         this.resetGames()
@@ -22,48 +23,49 @@ export default class GamesSingleton implements IGamesSingleton{
     }
 
     resetTempGame(){
-        this.tempGame = {
-            total_kills: 0,
-            players: new Set<string>,
-            kills: new Map<string, number>,
-        }
+        this.tempGame = Game.createNewGame(this.getCurrentGameName())
     }
    
     addPlayerKillCountByOne(playerName){
-        if(this.tempGame.kills.get(playerName) == undefined){
-            this.tempGame.kills.set(playerName, 0)
+        const currentGame = this.getCurrentGame()
+
+        if(currentGame == undefined){
+            const gameName = this.getCurrentGameName()
+            this.tempGame = Game.createNewGame(gameName)
+        }
+
+        if(currentGame.kills[playerName] == undefined){
+            currentGame.kills[playerName] = 0
         }
 
         this.increaseTotalKillCount()
-        this.tempGame.kills.set(playerName, this.tempGame.kills.get(playerName) + 1)
+        currentGame.kills[playerName] = currentGame.kills[playerName] + 1
     }
 
 
     removePlayerKillCountByOne(playerName){
-        if(this.tempGame.kills.get(playerName) == undefined){
-            this.tempGame.kills.set(playerName, 0)
+        let currentGame = this.getCurrentGame()
+
+        if(currentGame.kills[playerName] == undefined){
+            currentGame.kills[playerName] = 0
         }
 
-        const totalKillsOfPlater = this.tempGame.kills.get(playerName)
+        currentGame = this.getCurrentGame()
+
+        const totalKillsOfPlater = currentGame.kills[playerName]
 
         if(totalKillsOfPlater == 0)
             return
 
-        this.tempGame.kills.set(playerName, this.tempGame.kills.get(playerName) - 1)
+            currentGame.kills[playerName] = totalKillsOfPlater - 1
     }
 
     increaseTotalKillCount(){
-        this.tempGame.total_kills++
+        this.tempGame[this.getCurrentGameName()].total_kills++
     }
 
     addTempGame() { 
-        const game: Game = {
-            total_kills: this.tempGame.total_kills, 
-            players: Array.from(this.tempGame.players),
-            kills: Object.fromEntries(orderMapByValue(this.tempGame.kills))
-        }
-        this.resetTempGame()
-        this.games.push(game)
+        this.games.push(mapGameIntoGameReport(this.tempGame, this.getCurrentGameName()))
     }
 
     resetGames(){
@@ -71,7 +73,17 @@ export default class GamesSingleton implements IGamesSingleton{
         this.resetTempGame()
     }
 
-    getGames(){
+    getGamesReport(){
         return this.games
+    }
+
+    getCurrentGameName(){
+        const currentGameNumber = GlobalsSingleton.getInstance().getCurrentGameNumber()
+        return `game_${currentGameNumber}`
+    }
+
+    getCurrentGame(){
+        const currentGameName = this.getCurrentGameName()
+        return this.tempGame[currentGameName]
     }
 }

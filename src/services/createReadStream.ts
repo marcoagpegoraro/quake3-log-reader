@@ -11,8 +11,8 @@ function streamAsPromise(rl) {
     return new Promise((resolve, reject) => {
         rl.on('line', (line) => processLine(line));
         rl.on("close", () => resolve([
-            gamesSingleton.getGames(), 
-            gamesDeathCauseSingleton.getGames()
+            gamesSingleton.getGamesReport(), 
+            gamesDeathCauseSingleton.getGamesReport()
         ]));
         rl.on("error", error => reject(error));
     });

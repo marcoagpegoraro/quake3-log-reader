@@ -5,5 +5,7 @@ export interface IGamesSingleton{
     resetTempGame()
     addTempGame()
     resetGames()
-    getGames()
+    getGamesReport()
+    getCurrentGameName()
+    getCurrentGame()
 }

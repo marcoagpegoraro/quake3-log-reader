@@ -1,6 +1,7 @@
 import { MeansOfDeath } from "../enum/MeansOfDeath";
 import { GameDeathCause } from "../types/GameDeathCause";
 import { orderMapByValue } from "../utils/orderMapByValue";
+import GlobalsSingleton from "./GlobalsSingleton";
 import { IGamesSingleton } from "./IGamesSingleton";
 
 export default class GamesDeathCauseSingleton implements IGamesSingleton {
@@ -22,25 +23,27 @@ export default class GamesDeathCauseSingleton implements IGamesSingleton {
     }
 
     resetTempGame(){
-        this.tempGame = {
-            kills_by_means: new Map<MeansOfDeath, number>,
-        }
+        this.tempGame = GameDeathCause.createNewGame(this.getCurrentGameName())
     } 
    
     increaseDeathCauseCount(deathCause){
-        const meanOfDeath = MeansOfDeath.parse(deathCause)
+        let currentGame = this.getCurrentGame()
 
-        if(this.tempGame.kills_by_means.get(meanOfDeath) == undefined){
-            this.tempGame.kills_by_means.set(meanOfDeath, 0)
+        if(currentGame == undefined){
+            const gameName = this.getCurrentGameName()
+            this.tempGame = GameDeathCause.createNewGame(gameName)
+        }
+        currentGame = this.getCurrentGame()
+
+        if(currentGame.kills_by_means[deathCause] == undefined){
+            currentGame.kills_by_means[deathCause] = 0
         }
 
-        this.tempGame.kills_by_means.set(meanOfDeath, this.tempGame.kills_by_means.get(meanOfDeath) + 1)
+        currentGame.kills_by_means[deathCause] = currentGame.kills_by_means[deathCause] + 1
     }
 
     addTempGame() { 
-        this.tempGame.kills_by_means = orderMapByValue(this.tempGame.kills_by_means) as Map<MeansOfDeath, number>
         this.games.push(this.tempGame)
-        this.resetTempGame()
     }
 
     resetGames(){
@@ -48,12 +51,18 @@ export default class GamesDeathCauseSingleton implements IGamesSingleton {
         this.resetTempGame()
     }
 
-    getGames(){
-        return {
-            kills_by_means: this.games
-                .map(game => game.kills_by_means)
-                .map(game => Object.fromEntries(game))
-        }
+    getGamesReport(){
+        return this.games
+    }
+
+    getCurrentGameName(){
+        const currentGameNumber = GlobalsSingleton.getInstance().getCurrentGameNumber()
+        return `game-${currentGameNumber}`
+    }
+
+    getCurrentGame(){
+        const currentGameName = this.getCurrentGameName()
+        return this.tempGame[currentGameName]
     }
 
 }

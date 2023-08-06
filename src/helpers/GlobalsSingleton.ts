@@ -4,9 +4,10 @@ export default class GlobalsSingleton {
     private static instance: GlobalsSingleton;
 
     isGameActive: boolean 
+    currentGameNumber: number
 
     constructor() {
-        this.isGameActive=false;
+        this.reset()
     }
 
     static getInstance() {
@@ -14,6 +15,23 @@ export default class GlobalsSingleton {
             this.instance = new GlobalsSingleton()
         }
         return this.instance;
+    }
+
+    setIsGameActive(isGameActive){
+        this.isGameActive = isGameActive
+    }
+
+    increaseCurrentGameNumber(){
+        this.currentGameNumber++
+    }
+
+    getCurrentGameNumber(){
+        return this.currentGameNumber
+    }
+
+    reset(){
+        this.isGameActive=false;
+        this.currentGameNumber=1;
     }
 
 }
