@@ -15,10 +15,10 @@ export default async function main(fileName){
     GamesDeathCauseSingleton.getInstance().resetGames()
 
     console.log("---------- Report for each match and player ranking ----------")
-    console.log(JSON.stringify(reportPlayerRank))
+    console.log(JSON.stringify(reportPlayerRank, null, 2))
     console.log("---------- End report for each match and player ranking ----------")
     console.log("---------- Report for each match death cause ----------")
-    console.log(JSON.stringify(reportDeathCause))
+    console.log(JSON.stringify(reportDeathCause, null, 2))
     console.log("---------- End report for each match death cause ----------")
 
     return [reportPlayerRank, reportDeathCause]
