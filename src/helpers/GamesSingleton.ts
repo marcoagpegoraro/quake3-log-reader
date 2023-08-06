@@ -1,8 +1,9 @@
 import { Game } from "../types/Game";
 import { TempGame } from "../types/TempGame";
 import { orderMapByValue } from "../utils/orderMapByValue";
+import { IGamesSingleton } from "./IGamesSingleton";
 
-export default class GamesSingleton {
+export default class GamesSingleton implements IGamesSingleton{
 
     private static instance: GamesSingleton;
 

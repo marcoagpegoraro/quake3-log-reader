@@ -1,8 +1,9 @@
 import { MeansOfDeath } from "../enum/MeansOfDeath";
 import { GameDeathCause } from "../types/GameDeathCause";
 import { orderMapByValue } from "../utils/orderMapByValue";
+import { IGamesSingleton } from "./IGamesSingleton";
 
-export default class GamesDeathCauseSingleton {
+export default class GamesDeathCauseSingleton implements IGamesSingleton {
 
     private static instance: GamesDeathCauseSingleton;
 
