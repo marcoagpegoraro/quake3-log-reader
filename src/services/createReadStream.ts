@@ -15,7 +15,7 @@ function streamAsPromise(rl) {
     });
 }
 
-export default async function createReadStream(fileName) {
+export async function processFile(fileName) {
     const fileStream = fs.createReadStream(fileName);
     
     return streamAsPromise(readline.createInterface({

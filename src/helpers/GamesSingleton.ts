@@ -1,5 +1,6 @@
 import { Game } from "../types/Game";
 import { TempGame } from "../types/TempGame";
+import { orderMapByValue } from "../utils/orderMapByValue";
 
 export default class GamesSingleton {
 
@@ -58,7 +59,7 @@ export default class GamesSingleton {
         const game: Game = {
             total_kills: this.tempGame.total_kills, 
             players: Array.from(this.tempGame.players),
-            kills: Object.fromEntries(this.tempGame.kills)
+            kills: Object.fromEntries(orderMapByValue(this.tempGame.kills))
         }
         this.resetTempGame()
         this.games.push(game)

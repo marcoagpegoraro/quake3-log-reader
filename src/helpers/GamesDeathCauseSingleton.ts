@@ -1,5 +1,6 @@
 import { MeansOfDeath } from "../enum/MeansOfDeath";
 import { GameDeathCause } from "../types/GameDeathCause";
+import { orderMapByValue } from "../utils/orderMapByValue";
 
 export default class GamesDeathCauseSingleton {
 
@@ -36,6 +37,7 @@ export default class GamesDeathCauseSingleton {
     }
 
     addTempGame() { 
+        this.tempGame.kills_by_means = orderMapByValue(this.tempGame.kills_by_means) as Map<MeansOfDeath, number>
         this.games.push(this.tempGame)
         this.resetTempGame()
     }
