@@ -1,6 +1,5 @@
 import { MeansOfDeath } from "../enum/MeansOfDeath";
 import { GameDeathCause } from "../types/GameDeathCause";
-import { orderMapByValue } from "../utils/orderMapByValue";
 import GlobalsSingleton from "./GlobalsSingleton";
 import { IGamesSingleton } from "./IGamesSingleton";
 

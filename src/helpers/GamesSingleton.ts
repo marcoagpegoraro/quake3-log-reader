@@ -1,6 +1,5 @@
 import { mapGameIntoGameReport } from "../mappers/mapGameIntoGameReport";
 import { Game, GameReport, KillsContent } from "../types/Game";
-import { orderMapByValue } from "../utils/orderMapByValue";
 import GlobalsSingleton from "./GlobalsSingleton";
 import { IGamesSingleton } from "./IGamesSingleton";
 
