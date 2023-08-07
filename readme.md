@@ -43,7 +43,16 @@ _The player "Isgalamido" died because he was wounded and fell from a height enou
   
 _The player "Isgalamido" killed the player "Dono da Bola" using the Railgun weapon._
   
-####Example of grouped information for each match:
+Additional notes:
+
+1. When `<world>` kill a player, that player loses -1 kill score.
+2. Since `<world>` is not a player, it should not appear in the list of players or in the dictionary of kills.
+3. The counter `total_kills` includes player and world deaths.
+
+
+### Examples (took from the unit test):
+
+#### Grouped information for each match:
 
 ```json
 [
@@ -68,13 +77,7 @@ _The player "Isgalamido" killed the player "Dono da Bola" using the Railgun weap
 ]
 ```
 
-Additional notes:
-
-1. When `<world>` kill a player, that player loses -1 kill score.
-2. Since `<world>` is not a player, it should not appear in the list of players or in the dictionary of kills.
-3. The counter `total_kills` includes player and world deaths.
-
-#### Example of grouped death cause information for each match:
+#### Grouped death cause information for each match:
 
 
 ```json
